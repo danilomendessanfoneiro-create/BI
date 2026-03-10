@@ -1,133 +1,60 @@
-<!DOCTYPE html>
-
-<html lang="pt-br">
-
-<head>
-<meta charset="UTF-8">
-<title>Portal BI</title>
-
-<style>
-
-body{
-font-family:Arial;
-margin:0;
-background:#f4f6f9;
-}
-
-header{
-background:#1f2937;
-color:white;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.login-box{
-width:320px;
-margin:auto;
-margin-top:120px;
-background:white;
-padding:30px;
-border-radius:8px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-input{
-width:100%;
-padding:10px;
-margin-top:10px;
-}
-
-button{
-padding:10px;
-margin-top:10px;
-background:#2563eb;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-iframe{
-width:100%;
-height:90vh;
-border:none;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div id="login">
-
-<div class="login-box">
-
-<h2>Portal BI</h2>
-
-<p>Dashboard do Cliente</p>
-
-<input id="usuario" placeholder="Usuário">
-<input id="senha" type="password" placeholder="Senha">
-
-<button onclick="login()">Entrar</button>
-
-<p id="erro" style="color:red"></p>
-
-</div>
-
-</div>
-
-<div id="portal" style="display:none">
-
-<header>
-
-<div>Portal BI - Cliente</div>
-
-<button onclick="logout()">Sair</button>
-
-</header>
-
-<iframe id="dashboard"></iframe>
-
-</div>
-
 <script>
+function login() {
+    var usuarioInput = document.getElementById("usuario").value;
+    var senhaInput = document.getElementById("senha").value;
+    var erro = document.getElementById("erro");
 
-function login(){
+    // LISTA DE ACESSO DOS SEUS CLIENTES
+    const usuariosPermitidos = {
+        "Danilo": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "Tamara53786": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "Edirsabino": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "GSPrest": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "HamiltonAdriano": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "Paulaes": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "Solution": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        },
+        "Tptransporte": {
+            senha: "ABCdef123!",
+            link: "COLE_O_LINK_AQUI"
+        }
+    };
 
-var usuario = document.getElementById("usuario").value;
-var senha = document.getElementById("senha").value;
+    // VERIFICAÇÃO DE LOGIN
+    const user = usuariosPermitidos[usuarioInput];
 
-if(usuario == "cliente1" && senha == "123"){
-
-document.getElementById("dashboard").src =
-"https://app.powerbi.com/view?r=eyJrIjoiNWJjYTgwYzAtNDllNy00YTkxLWE0ZTUtYTE0ZmU3ZWQ4YzAwIiwidCI6IjA5YmY1ZTc3LWY4ZDYtNDBkNS1iMGYyLTFkN2Y1NWRjYzA3YiJ9";
-
+    if (user && user.senha === senhaInput) {
+        // Se acertar, carrega o link específico e mostra o portal
+        document.getElementById("dashboard").src = user.link;
+        document.getElementById("login").style.display = "none";
+        document.getElementById("portal").style.display = "block";
+    } else {
+        // Se errar, mostra a mensagem
+        erro.innerText = "Usuário ou senha inválidos";
+    }
 }
 
-else{
-
-document.getElementById("erro").innerText="Usuário ou senha inválidos";
-return;
-
+function logout() {
+    location.reload();
 }
-
-document.getElementById("login").style.display="none";
-document.getElementById("portal").style.display="block";
-
-}
-
-function logout(){
-
-location.reload();
-
-}
-
 </script>
-
-</body>
-
-</html>
